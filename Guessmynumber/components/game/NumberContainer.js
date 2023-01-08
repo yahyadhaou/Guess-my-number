@@ -20,9 +20,10 @@ const styles = StyleSheet.create({
 
     },
     numbertext: {
+
         color: "#72063c",
         fontSize: 36,
-        fontWeight: "bold"
+      fontFamily:'open-sans-bold'
     }
 
 })

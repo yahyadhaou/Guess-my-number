@@ -6,6 +6,7 @@ function InstructionText({children}) {
 export default InstructionText
 const styles=StyleSheet.create({
     InstructionText:{
+        fontFamily:"open-sans-bold",
         color:"#ddb52f",
         fontSize:24,
         

@@ -4,9 +4,20 @@ import { StyleSheet, ImageBackground, SafeAreaView, View } from 'react-native';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
+import { useFonts} from "expo-font"
+import AppLoading from "expo-app-loading"
 export default function App() {
   const [userNumber, setUserNumber] = useState()
   const [gameIsover, setGameIsOver] = useState(true)
+
+
+   const[fontsloaded]=useFonts({
+    'open-sans':require('./assets/fonts/OpenSans-Regular.ttf/'),
+    'open-sans-bold':require('./assets/fonts/OpenSans-Bold.ttf/'),
+  })
+  if (!fontsloaded){
+    return <AppLoading />
+  }
   function pickedNumber(pickedNumber) {
 
     setUserNumber(pickedNumber)
