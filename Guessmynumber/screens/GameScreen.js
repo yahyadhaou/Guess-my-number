@@ -1,10 +1,12 @@
-import { Text, View, Button, Alert } from "react-native"
+import { View, Button, Alert } from "react-native"
 import { StyleSheet } from "react-native"
 import NumberContainer from "../components/game/NumberContainer"
 import Title from "../components/ui/Title"
 import { useEffect, useState } from "react"
 import PrimaryButton from "../components/ui/PrimmaryButton"
-function generateRandomBetwen(min,max,exlude) {
+import Card from "../components/ui/card"
+import InstructionText from "../components/ui/InstructionText"
+function generateRandomBetwen(min, max, exlude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min
     if (rndNum === exlude) {
         return generateRandomBetwen(min, max, exlude)
@@ -15,24 +17,24 @@ function generateRandomBetwen(min,max,exlude) {
 }
 let minBoundary = 1
 let maxboundary = 100
-function GameScreen({userNumber,onGameover}){
-    const initalGuess=generateRandomBetwen(
+function GameScreen({ userNumber, onGameOver }) {
+    const initalGuess = generateRandomBetwen(
         1,
         100,
         userNumber
     )
-    const [currentGuess,setcurrentGuess]=useState(initalGuess)
-    useEffect(()=>{
-        if(currentGuess===userNumber){
-onGameover()
+    const [currentGuess, setcurrentGuess] = useState(initalGuess)
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+            onGameOver()
         }
-    },[currentGuess,userNumber,onGameover])
+    }, [currentGuess, userNumber, onGameOver])
 
 
     function NextGuessHandler(direction) {
-        if (direction === "lower" && currentGuess <userNumber || 
-        (direction === "greater" && currentGuess > userNumber)) {
-           Alert.alert("you know this is worng",[{text:'sorry', style:"cancel"}])
+        if (direction === "lower" && currentGuess < userNumber ||
+            (direction === "greater" && currentGuess > userNumber)) {
+            Alert.alert("you know this is worng", [{ text: 'sorry', style: "cancel" }])
             return
         }
         if (direction === "lower") {
@@ -53,21 +55,23 @@ onGameover()
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
 
-            <View>
-                <Text> Higher or Lower</Text>
-                <View>
+            <Card>
+                <InstructionText> Higher or Lower</InstructionText>
+                <View style={styles.buttonsContainer}>
                     <PrimaryButton onPress={NextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
                     <PrimaryButton onPress={NextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
                 </View>
-            </View>
+            </Card>
         </View>
     )
-    }
+}
 export default GameScreen
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 24
     },
-
+buttonsContainer:{
+    flexDirection:'row'
+},
 })
